@@ -1,0 +1,33 @@
+App\Entity\User:
+    user{1..8}:
+        username: <username()>
+        password: <password("123456")>
+        groups: '[@group*]'
+        roles: '[@role*]'
+App\Entity\Group:
+    group1:
+        name: Group 1
+        description: <text()>
+    group2:
+        name: Group 2
+        description: <text()> 
+    group3:
+        name: Group 3
+        description: <text()>
+    group4:
+        name: Group 4
+        description: <text()>
+App\Entity\Role:
+    role1:
+        name: admin
+        description: <text()>
+    role2:
+        name: group
+        description: <text()> 
+    role3:
+        name: user
+        description: <text()>
+App\Entity\Event:
+    event{1..5}:
+        name: <name()>
+        user:  '@user<current()>'
