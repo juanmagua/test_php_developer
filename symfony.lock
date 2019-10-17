@@ -159,6 +159,21 @@
     "sebastian/recursion-context": {
         "version": "3.0.0"
     },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "symfony/asset": {
+        "version": "v4.3.5"
+    },
     "symfony/cache": {
         "version": "v4.3.5"
     },
@@ -290,11 +305,58 @@
             "./config/routes.yaml"
         ]
     },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "e5a0228251d1dd2bca4c8ef918e14423c06db625"
+        },
+        "files": [
+            "./config/packages/security.yaml"
+        ]
+    },
+    "symfony/security-core": {
+        "version": "v4.3.5"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.3.5"
+    },
+    "symfony/security-guard": {
+        "version": "v4.3.5"
+    },
+    "symfony/security-http": {
+        "version": "v4.3.5"
+    },
     "symfony/service-contracts": {
         "version": "v1.1.7"
     },
     "symfony/stopwatch": {
         "version": "v4.3.5"
+    },
+    "symfony/translation-contracts": {
+        "version": "v1.1.7"
+    },
+    "symfony/twig-bridge": {
+        "version": "v4.3.5"
+    },
+    "symfony/twig-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "7e5911186d596214c14dd28305485a3c143ee746"
+        },
+        "files": [
+            "./config/packages/twig.yaml",
+            "./config/routes/dev/twig.yaml",
+            "./templates/base.html.twig"
+        ]
+    },
+    "symfony/twig-pack": {
+        "version": "v1.0.0"
     },
     "symfony/var-exporter": {
         "version": "v4.3.5"
@@ -310,6 +372,12 @@
             "version": "1.0",
             "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
         }
+    },
+    "twig/extra-bundle": {
+        "version": "v2.12.1"
+    },
+    "twig/twig": {
+        "version": "v2.12.1"
     },
     "zendframework/zend-code": {
         "version": "3.4.0"

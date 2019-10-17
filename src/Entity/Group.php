@@ -34,9 +34,11 @@ class Group
      */
     private $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userss = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,4 +97,6 @@ class Group
 
         return $this;
     }
+
+ 
 }

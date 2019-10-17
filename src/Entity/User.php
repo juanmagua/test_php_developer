@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,41 +20,31 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
      */
     private $roles;
+    
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Group", inversedBy="users")
      */
     private $groups;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="user")
-     */
-    private $events;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="user")
-     */
-    private $media;
-
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
         $this->groups = new ArrayCollection();
-        $this->events = new ArrayCollection();
-        $this->media = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,9 +52,14 @@ class User
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->username;
+        return (string) $this->username;
     }
 
     public function setUsername(string $username): self
@@ -73,9 +69,43 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRoles(): Array
     {
-        return $this->password;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = "ROLE_USER";
+        // TODO:: Buscar Mejor Solución!!
+        foreach($this->roles as $role){
+
+            $roles[] = $role->getName();
+        }
+
+        return $roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -86,29 +116,20 @@ class User
     }
 
     /**
-     * @return Collection|Role[]
+     * @see UserInterface
      */
-    public function getRoles(): Collection
+    public function getSalt()
     {
-        return $this->roles;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    public function addRole(Role $role): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-    public function removeRole(Role $role): self
-    {
-        if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     /**
@@ -132,68 +153,6 @@ class User
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getUser() === $this) {
-                $event->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Media[]
-     */
-    public function getMedia(): Collection
-    {
-        return $this->media;
-    }
-
-    public function addMedium(Media $medium): self
-    {
-        if (!$this->media->contains($medium)) {
-            $this->media[] = $medium;
-            $medium->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedium(Media $medium): self
-    {
-        if ($this->media->contains($medium)) {
-            $this->media->removeElement($medium);
-            // set the owning side to null (unless already changed)
-            if ($medium->getUser() === $this) {
-                $medium->setUser(null);
-            }
         }
 
         return $this;

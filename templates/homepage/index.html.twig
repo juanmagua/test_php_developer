@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {user.username}!!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+  <h1>Hello {{user.getUsername()}} - <a class="text-muted" href="{{ path('app_logout') }}">logout </a></h1>
+  <div class="row">
+    <div class="col-12">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Event</th>
+            <th scope="col">Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+                <tr>
+                <th scope="row">{{ event.id }}</th>
+                <td>{{ event.user.username }}</td>
+                <td>{{ event.name }}</td>
+                <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div class="col-12 mt-5">
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Media</th>
+            <th scope="col">Event</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for media in medias %}
+                <tr>
+                <th scope="row">{{ media.id }}</th>
+                <td>{{ media.user.username }}</td>
+                <td>{{ media.filename }}</td>
+                <td>{{ media.event.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+    </div>
+</div>    
+</div>
+{% endblock %}

@@ -1,7 +1,9 @@
+parameters:
+    hash: $argon2i$v=19$m=65536,t=4,p=1$SUFxZnBMQ3o1TEVlMS95Vg$BBBPJO7CxDdkcgDRV9VszwwIhdwIbkbPd+dNii4hWBc
 App\Entity\User:
     user{1..8}:
         username: <username()>
-        password: <password("123456")>
+        password: <{hash}>
         groups: '[@group*]'
         roles: '[@role*]'
 App\Entity\Group:
