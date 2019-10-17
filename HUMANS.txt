@@ -1,0 +1,15 @@
+/* Author */
+author: Juan Manuel Guadalupe
+País: España
+Ciudad: Barcelona
+Descripcion: Test PHP DEVELOPER
+email:
+telefono:
+
+
+/* SITE */
+	Last update: 17/10/2019
+	Language: Spanish
+	Standards: HTML5, CSS3
+	Components: 
+	Software: PHP 7.2, Symfony4, Doctrine2,  ...

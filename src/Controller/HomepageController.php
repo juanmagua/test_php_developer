@@ -26,12 +26,9 @@ class HomepageController extends AbstractController
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
-            'events' => $eventRepository->findAllByRol($roles, $user),
             'medias' => $mediatRepository->findAllByRol($roles, $user),
             'user' => $this->getUser(),
-            'roles' => $roles,
-
-
+            'roles' => $roles
         ]);
     }
 }
