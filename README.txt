@@ -2,8 +2,28 @@
 # Commit 1
 
 
+```
+git clone https://github.com/juanmagua/test_php_developer.git
+
+```
 
 # Commit 2
+
+Crear un Proyecto con Symfony
+
+```
+composer create-project symfony/skeleton
+
+```
+
+Run Test
+
+```
+cd project_name
+
+php -S 127.0.0.1:8000 -t public
+
+```
 
 # Commit 3
 
@@ -12,76 +32,113 @@ Install => composer require symfony/orm-pack
 Install => composer require symfony/maker-bundle --dev
 ```
 
-
 Config .ENV 
-#
-DATABASE_URL="mysql://root@127.0.0.1:3306/test_php_developer"
 
-Create DB => php bin/console doctrine:database:create
+```
+#DATABASE_URL="mysql://root@127.0.0.1:3306/test_php_developer"
+```
+
+Create DB
+
+```
+php bin/console doctrine:database:create
+```
 
 Create Entity 
 
+```
 php bin/console make:entity "Entity"
+```
 
 Create Migration
 
+```
 php bin/console make:migration
+```
 
 Run Migration
 
+```
 php bin/console doctrine:migrations:migrate
+```
 
 If you add new property
 
+```
 php bin/console doctrine:migrations:diff
-	
+```	
 
 
-** COMMIT 4  
+# COMMIT 4  
 
-LISTO!
+```
 
-** COMMIT 5
+```
+
+# COMMIT 5
 
 Creacion de un Generador de contenido aletorio para User, Group, Event
 
 Popular las entidades hacia la BBDD 
 
-Install => composer require --dev doctrine/doctrine-fixtures-bundle 
-Install => composer require --dev hautelook/alice-bundle 
-install => composer require --dev theofidry/alice-data-fixtures
+```
+composer require --dev doctrine/doctrine-fixtures-bundle 
+composer require --dev hautelook/alice-bundle 
+composer require --dev theofidry/alice-data-fixtures
+```
 
+Run Fixture 
 
-Run Fixture => php bin/console hautelook:fixtures:load
+```
+php bin/console hautelook:fixtures:load
+```
 
+# COMMIT 6
 
-** COMMIT 6
+INSTALL 
 
-INSTALL => composer require symfony/finder
+```
+composer require symfony/finder
+```
+RUN 
 
-RUN =>  php bin/console app:import-media
-
+```
+php bin/console app:import-media
+```
 ** COMMIT 7
 
-INSTALL => composer require symfony/security-bundle
-           composer requiere security
-           composer requiere twig
+INSTALL 
 
-ADD AUTH => php bin/console make:auth
+```
+composer require symfony/security-bundle
+composer requiere security
+composer requiere twig
+```
+ADD AUTH 
 
-RUN => php bin/console make:migration
-RUN =>   php bin/console cache:clear
-RUN => composer require symfony/asset
+```
+php bin/console make:auth
+```
 
+RUN
 
-** COMMIT 8
+```
+php bin/console make:migration
+php bin/console cache:clear
+composer require symfony/asset
+
+```
+
+# COMMIT 8
 
 Restringir Acceso
 
 
-** Commit 9
+# commit 9
 
+```
 readme.txt
 instal.txt
 changelog.tax
 humans.txt
+```
