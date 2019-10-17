@@ -85,6 +85,29 @@ class User implements UserInterface
         return $roles;
     }
 
+    public function getGroupView(){
+        $groups = "";
+
+        foreach($this->groups as $group){
+
+            $groups = $groups . " " . $group->getName();
+        }
+
+        return $groups;
+    }
+
+    public function getGroupIds(){
+        $ids = [];
+
+        foreach($this->groups as $group){
+
+            $ids[$group->getId()]= $group->getId();
+        }
+
+    
+        return $ids;
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

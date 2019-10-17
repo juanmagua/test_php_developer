@@ -11,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Role
 {
+
+    const ROLE_USER = 'user';
+    const ROLE_GROUP = 'group';
+    const ROLE_ADMIN = 'admin';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

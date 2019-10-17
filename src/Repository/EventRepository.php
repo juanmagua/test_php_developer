@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Role;
+use App\Entity\User;
+use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Repository\UserRepository;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,19 +26,31 @@ class EventRepository extends ServiceEntityRepository
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    
+    public function findAllByRol($roles, $user)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+        $result =  $this->createQueryBuilder('e');
+
+        if(in_array(Role::ROLE_GROUP, $roles)){
+            $result = $result->innerJoin(User::class, 'u')
+                            ->innerJoin(Group::class, 'g')
+                            ->andWhere('g.id IN (:val)')
+                            ->setParameter('val', $user->getGroupIds());
+
+        }else if(in_array(Role::ROLE_USER, $roles)){
+           
+           $result = $result->andWhere('e.user = :val')
+                   ->setParameter('val', $user->getId());
+
+        }
+               
+        $result = $result->orderBy('e.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getResult();
+    
+        return $result;    
+    }    
 
     /*
     public function findOneBySomeField($value): ?Event

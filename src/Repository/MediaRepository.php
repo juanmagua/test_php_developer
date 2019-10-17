@@ -3,6 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Media;
+use App\Entity\Role;
+use App\Entity\User;
+use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -18,6 +21,32 @@ class MediaRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Media::class);
     }
+
+    public function findAllByRol($roles, $user)
+    {
+        $result =  $this->createQueryBuilder('e');
+
+        if(in_array(Role::ROLE_GROUP, $roles)){
+            
+            $result = $result->innerJoin('e.user', 'media_user')
+                            ->innerJoin('media_user.groups', 'user_group')
+                            ->andWhere('user_group.id IN (:val)')
+                            ->setParameter('val', $user->getGroupIds());
+
+        }else if(in_array(Role::ROLE_USER, $roles)){
+           
+           $result = $result->andWhere('e.user = :val')
+                   ->setParameter('val', $user->getId());
+
+        }
+
+            
+        $result = $result->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    
+        return $result;    
+    }    
 
     // /**
     //  * @return Media[] Returns an array of Media objects

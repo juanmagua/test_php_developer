@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {user.username}!!{% endblock %}
+{% block title %}Hello {{user.getUsername()}}{% endblock %}
 
 {% block body %}
 <style>
@@ -10,29 +10,19 @@
 
 <div class="container">
   <h1>Hello {{user.getUsername()}} - <a class="text-muted" href="{{ path('app_logout') }}">logout </a></h1>
+  <p>Roles:
+    {% for role in roles %}
+            {% if role != 'ROLE_USER' %}   
+                    <span class="badge badge-secondary">
+                        {{ role}}   
+                    </span>
+            {% endif %}
+    {% endfor %}
+  </p>
+  <p>Groups:
+        {{user.getGroupView()}}
+  </p>
   <div class="row">
-    <div class="col-12">
-    <table class="table">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Event</th>
-            <th scope="col">Group</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for event in events %}
-                <tr>
-                <th scope="row">{{ event.id }}</th>
-                <td>{{ event.user.username }}</td>
-                <td>{{ event.name }}</td>
-                <td></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
     <div class="col-12 mt-5">
     <table class="table">
         <thead>
@@ -47,7 +37,7 @@
             {% for media in medias %}
                 <tr>
                 <th scope="row">{{ media.id }}</th>
-                <td>{{ media.user.username }}</td>
+                <td>{{ media.user.username }} - {{ media.user.getGroupView() }}</td>
                 <td>{{ media.filename }}</td>
                 <td>{{ media.event.name }}</td>
                 </tr>
