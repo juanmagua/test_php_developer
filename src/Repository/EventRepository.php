@@ -47,4 +47,16 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOneRandom(): ?Event
+    {
+        $results =  $this->createQueryBuilder('u')
+            ->getQuery()
+            ->getResult();
+
+            $key = array_rand($results);
+
+            return $results[$key]; 
+        ;
+    }
 }

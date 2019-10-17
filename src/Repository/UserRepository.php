@@ -36,6 +36,17 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
+    public function findOneRandom(): ?User
+    {
+        $results =  $this->createQueryBuilder('u')
+            ->getQuery()
+            ->getResult();
+
+            $key = array_rand($results);
+
+            return $results[$key]; 
+    }
+
     /*
     public function findOneBySomeField($value): ?User
     {
